@@ -1,4 +1,4 @@
-package mobi.liason.loaders;
+package mobi.liaison.loaders;
 
 import android.app.LoaderManager;
 import android.content.Context;

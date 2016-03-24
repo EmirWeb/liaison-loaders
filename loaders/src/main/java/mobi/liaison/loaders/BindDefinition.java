@@ -1,4 +1,4 @@
-package mobi.liason.loaders;
+package mobi.liaison.loaders;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,8 +7,8 @@ import android.net.Uri;
 import java.util.HashMap;
 import java.util.Map;
 
-import mobi.liason.loaders.support.SupportBindingManager;
-import mobi.liason.loaders.utilities.IdCreator;
+import mobi.liaison.loaders.support.SupportBindingManager;
+import mobi.liaison.loaders.utilities.IdCreator;
 
 /**
  * Created by Emir Hasanbegovic on 28/04/14.

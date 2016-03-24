@@ -1,4 +1,4 @@
-package mobi.liason.loaders.utilities;
+package mobi.liaison.loaders.utilities;
 
 /**
  * Created by Emir Hasanbegovic on 28/04/14.

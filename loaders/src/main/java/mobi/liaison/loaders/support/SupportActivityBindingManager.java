@@ -1,4 +1,4 @@
-package mobi.liason.loaders.support;
+package mobi.liaison.loaders.support;
 
 
 import android.support.v4.app.FragmentActivity;
@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 
-import mobi.liason.loaders.BindDefinition;
+import mobi.liaison.loaders.BindDefinition;
 
 /**
  * Created by Emir Hasanbegovic on 25/05/14.

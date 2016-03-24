@@ -1,9 +1,7 @@
-package mobi.liason.loaders;
+package mobi.liaison.loaders;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.google.common.collect.Lists;
@@ -13,13 +11,10 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * When moving to newer version of Android, SQLiteDatabase is a final class that does not allow us to mock it. Most of these test can no longer run.

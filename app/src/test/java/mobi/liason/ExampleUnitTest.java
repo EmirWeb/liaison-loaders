@@ -1,4 +1,4 @@
-package mobi.liason;
+package mobi.liaison;
 
 import org.junit.Test;
 

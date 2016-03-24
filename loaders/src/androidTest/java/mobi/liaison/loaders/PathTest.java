@@ -1,4 +1,4 @@
-package mobi.liason.loaders;
+package mobi.liaison.loaders;
 
 import android.net.Uri;
 import android.support.test.runner.AndroidJUnit4;

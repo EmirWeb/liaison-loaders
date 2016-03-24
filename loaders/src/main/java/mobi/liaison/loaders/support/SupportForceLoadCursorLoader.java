@@ -1,4 +1,4 @@
-package mobi.liason.loaders.support;
+package mobi.liaison.loaders.support;
 
 import android.content.Context;
 import android.net.Uri;

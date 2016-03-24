@@ -1,4 +1,4 @@
-package mobi.liason.loaders.support;
+package mobi.liaison.loaders.support;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mobi.liason.loaders.BindDefinition;
+import mobi.liaison.loaders.BindDefinition;
 
 /**
  * Created by Emir Hasanbegovic on 18/04/14.

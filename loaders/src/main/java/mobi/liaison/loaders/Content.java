@@ -1,4 +1,4 @@
-package mobi.liason.loaders;
+package mobi.liaison.loaders;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;

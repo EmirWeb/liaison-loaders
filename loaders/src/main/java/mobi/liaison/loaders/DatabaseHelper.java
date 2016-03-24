@@ -1,4 +1,4 @@
-package mobi.liason.loaders;
+package mobi.liaison.loaders;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public abstract class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String AUTHORITY = "mobi.liason";
+    private static final String AUTHORITY = "mobi.liaison";
     private final Context mContext;
 
     public DatabaseHelper(final Context context, final String name, final int version) {
