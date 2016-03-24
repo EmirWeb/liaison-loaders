@@ -6,8 +6,8 @@ android:
     - android-23
 
 before_install:
-	- android update sdk --filter extra-android-support --no-ui --force > /dev/null
-	- android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
+	- echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
+	- echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
 
 script:
    - ./gradlew build connectedCheck
