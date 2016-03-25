@@ -10,5 +10,6 @@ before_install:
    - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
 
 script:
+   - emulator -avd test -no-skin -no-audio -no-window &
    - android-wait-for-emulator
    - ./gradlew build connectedCheck
