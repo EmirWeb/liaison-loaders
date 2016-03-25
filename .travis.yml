@@ -7,6 +7,4 @@ android:
     - extra-android-m2repository
 
 script:
-   - emulator -avd test -no-skin -no-audio -no-window &
-   - android-wait-for-emulator
    - ./gradlew build connectedCheck

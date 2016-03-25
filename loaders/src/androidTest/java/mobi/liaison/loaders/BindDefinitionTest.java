@@ -28,7 +28,7 @@ public class BindDefinitionTest {
         final BindDefinition2 bindDefinition2 = new BindDefinition2(mContext);
         final int id1 = bindDefinition1.getId(mContext);
         final int id2 = bindDefinition2.getId(mContext);
-        assertThat(id1, equalTo((id2)));
+        assertThat(id1, not(equalTo((id2))));
     }
 
     public class BindDefinition1 extends BindDefinition {
