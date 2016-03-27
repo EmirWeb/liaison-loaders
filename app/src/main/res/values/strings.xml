@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Liaison</string>
+    <string name="app_name">Sample Liaison</string>
+    <string name="authority">sample.authority.com</string>
 </resources>
