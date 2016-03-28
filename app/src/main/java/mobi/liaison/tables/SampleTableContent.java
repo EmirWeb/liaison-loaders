@@ -17,6 +17,11 @@ import mobi.liaison.SampleProvider;
 import mobi.liaison.loaders.Path;
 import mobi.liaison.loaders.database.Column;
 import mobi.liaison.loaders.database.TableContent;
+import mobi.liaison.loaders.database.annotations.TableColumn;
+import mobi.liaison.loaders.database.annotations.TableColumns;
+import mobi.liaison.loaders.database.annotations.TablePath;
+import mobi.liaison.loaders.database.annotations.TablePaths;
+import mobi.liaison.loaders.database.annotations.Unique;
 
 /**
  * This creates a table in the database called SampleContentTable.
@@ -35,34 +40,27 @@ import mobi.liaison.loaders.database.TableContent;
 public class SampleTableContent extends TableContent {
 
     public static final String SAMPLE_NAME = "SampleTableContent";
-    public static final Path SAMPLE_PATH = new Path("SamplePath");
-    public static final Column _ID = new Column(SAMPLE_NAME, BaseColumns._ID, Column.Type.integer);
-    public static final Column SAMPLE_COLUMN_1 = new Column(SAMPLE_NAME, "SampleColumn1", Column.Type.text);
-    public static final Column SAMPLE_COLUMN_2 = new Column(SAMPLE_NAME, "SampleColumn2", Column.Type.text);
 
     @Override
     public String getName(Context context) {
         return SAMPLE_NAME;
     }
 
-    @Override
-    public List<Path> getPaths(Context context) {
-        final ArrayList<Path> paths = new ArrayList<>();
-
-        paths.add(SAMPLE_PATH);
-
-        return paths;
+    @TablePaths
+    public static class Paths {
+        @TablePath
+        public static final Path SAMPLE_PATH = new Path("SamplePath");
     }
 
-    @Override
-    public List<Column> getColumns(Context context) {
-        final ArrayList<Column> columns = new ArrayList<>();
-
-        columns.add(_ID);
-        columns.add(SAMPLE_COLUMN_1);
-        columns.add(SAMPLE_COLUMN_2);
-
-        return columns;
+    @TableColumns
+    public static class Columns {
+        @Unique
+        @TableColumn
+        public static final Column _ID = new Column(SAMPLE_NAME, BaseColumns._ID, Column.Type.integer);
+        @TableColumn
+        public static final Column SAMPLE_COLUMN_1 = new Column(SAMPLE_NAME, "SampleColumn1", Column.Type.text);
+        @TableColumn
+        public static final Column SAMPLE_COLUMN_2 = new Column(SAMPLE_NAME, "SampleColumn2", Column.Type.text);
     }
 
     /**
@@ -75,7 +73,7 @@ public class SampleTableContent extends TableContent {
      * @return true if successful, false otherwise
      */
     public static boolean insert(final Context context, final List<SampleData> sampleColumns) {
-        final Uri uri = SampleProvider.getUri(context, SAMPLE_PATH);
+        final Uri uri = SampleProvider.getUri(context, Paths.SAMPLE_PATH);
 
         final ArrayList<ContentProviderOperation> contentProviderOperations = new ArrayList<ContentProviderOperation>();
 
@@ -105,9 +103,9 @@ public class SampleTableContent extends TableContent {
 
     public static ContentValues getContentValues(final SampleData sampleData) {
         final ContentValues contentValues = new ContentValues();
-        contentValues.put(_ID.getName(), sampleData.mId);
-        contentValues.put(SAMPLE_COLUMN_1.getName(), sampleData.mSampleColumn1);
-        contentValues.put(SAMPLE_COLUMN_2.getName(), sampleData.mSampleColumn2);
+        contentValues.put(Columns._ID.getName(), sampleData.mId);
+        contentValues.put(Columns.SAMPLE_COLUMN_1.getName(), sampleData.mSampleColumn1);
+        contentValues.put(Columns.SAMPLE_COLUMN_2.getName(), sampleData.mSampleColumn2);
         return contentValues;
     }
 }

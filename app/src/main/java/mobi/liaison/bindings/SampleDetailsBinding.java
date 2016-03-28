@@ -27,19 +27,19 @@ public class SampleDetailsBinding extends ActivityItemBinding {
         /**
          * Binds the sample_column_1 to the UI in the activity;
          */
-        final TextBinder sampleColumn1Binder = new TextBinder(R.id.activity_details_sample_sample_column_1, SampleTableContent.SAMPLE_COLUMN_1);
+        final TextBinder sampleColumn1Binder = new TextBinder(R.id.activity_details_sample_sample_column_1, SampleTableContent.Columns.SAMPLE_COLUMN_1);
         addBinding(sampleColumn1Binder);
 
         /**
          * Binds the sample_column_2 to the UI in the activity;
          */
-        final TextBinder sampleColumn2Binder = new TextBinder(R.id.activity_details_sample_sample_column_2, SampleTableContent.SAMPLE_COLUMN_2);
+        final TextBinder sampleColumn2Binder = new TextBinder(R.id.activity_details_sample_sample_column_2, SampleTableContent.Columns.SAMPLE_COLUMN_2);
         addBinding(sampleColumn2Binder);
     }
 
     @Override
     public String getSelection(Context context) {
-        return SampleTableContent._ID + "=?";
+        return SampleTableContent.Columns._ID + "=?";
     }
 
     @Override
@@ -49,6 +49,6 @@ public class SampleDetailsBinding extends ActivityItemBinding {
 
     @Override
     public Uri getUri(Context context) {
-        return SampleProvider.getUri(context, SampleTableContent.SAMPLE_PATH);
+        return SampleProvider.getUri(context, SampleTableContent.Paths.SAMPLE_PATH);
     }
 }

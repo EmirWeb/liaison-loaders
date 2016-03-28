@@ -29,6 +29,6 @@ public class SampleAdapterBinding extends ActivityAdapterBinding {
 
     @Override
     public Uri getUri(Context context) {
-        return SampleProvider.getUri(context, SampleTableContent.SAMPLE_PATH);
+        return SampleProvider.getUri(context, SampleTableContent.Paths.SAMPLE_PATH);
     }
 }

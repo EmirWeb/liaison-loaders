@@ -11,7 +11,6 @@ public class Column {
     private final String mStringType;
     private final String mSqlName;
 
-
     public Column(final String sqlName, final String name, final Type type, final String stringType) {
         mSqlName = sqlName;
         mName = name;

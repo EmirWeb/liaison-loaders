@@ -2,6 +2,8 @@ package mobi.liaison.loaders.database;
 
 import android.content.Context;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +11,12 @@ import java.util.Set;
 
 import mobi.liaison.loaders.Content;
 import mobi.liaison.loaders.Path;
+import mobi.liaison.loaders.database.annotations.TableColumn;
+import mobi.liaison.loaders.database.annotations.TableColumns;
+import mobi.liaison.loaders.database.annotations.TablePath;
+import mobi.liaison.loaders.database.annotations.TablePaths;
+import mobi.liaison.loaders.database.annotations.PrimaryKey;
+import mobi.liaison.loaders.database.annotations.Unique;
 
 /**
  * Created by Emir Hasanbegovic on 13/05/14.
@@ -26,6 +34,74 @@ public abstract class TableContent extends Content {
     private final Set<Column> mUniqueColumns = new HashSet<Column>();
     private final List<Path> mPaths = new ArrayList<Path>();
     private final Set<Column> mPrimaryKeys = new HashSet<Column>();
+
+    public TableContent(){
+        initializeAnnotations();
+    }
+
+    public void initializeAnnotations() {
+        final Class<? extends TableContent> klass = this.getClass();
+        initializeAnnotations(klass);
+    }
+
+    public void initializeAnnotations(final Class klass) {
+        final Class<? extends Column> columnClass = klass;
+        final Class<?>[] declaredClasses = columnClass.getDeclaredClasses();
+        for (final Class<?> declaredClass : declaredClasses) {
+            final Annotation[] declaredClassAnnotations = declaredClass.getDeclaredAnnotations();
+            for (final Annotation declaredClassAnnotation : declaredClassAnnotations) {
+                if (declaredClassAnnotation instanceof TableColumns) {
+                    initializeTableColumn(declaredClass);
+                }else if (declaredClassAnnotation instanceof TablePaths) {
+                    initializeTablePaths(declaredClass);
+                }
+            }
+        }
+    }
+
+    public void initializeTablePaths(Class<?> declaredClass) {
+        final Field[] declaredFields = declaredClass.getDeclaredFields();
+        for (final Field declaredField : declaredFields) {
+            final Annotation[] declaredFieldAnnotations = declaredField.getDeclaredAnnotations();
+            for (final Annotation declaredFieldAnnotation : declaredFieldAnnotations) {
+                if (declaredFieldAnnotation instanceof TablePath) {
+                    try {
+                        final Path path = (Path) declaredField.get(null);
+                        mPaths.add(path);
+                    } catch (IllegalAccessException e) {
+                    }
+                }
+            }
+        }
+    }
+
+    public void initializeTableColumn(Class<?> declaredClass) {
+        final Field[] declaredFields = declaredClass.getDeclaredFields();
+        for (final Field declaredField : declaredFields) {
+            final Annotation[] declaredFieldAnnotations = declaredField.getDeclaredAnnotations();
+            for (final Annotation declaredFieldAnnotation : declaredFieldAnnotations) {
+                if (declaredFieldAnnotation instanceof PrimaryKey) {
+                    try {
+                        final Column column = (Column) declaredField.get(null);
+                        mPrimaryKeys.add(column);
+                    } catch (IllegalAccessException e) {
+                    }
+                } else if (declaredFieldAnnotation instanceof TableColumn) {
+                    try {
+                        final Column column = (Column) declaredField.get(null);
+                        mColumns.add(column);
+                    } catch (IllegalAccessException e) {
+                    }
+                } else if (declaredFieldAnnotation instanceof Unique) {
+                    try {
+                        final Column column = (Column) declaredField.get(null);
+                        mUniqueColumns.add(column);
+                    } catch (IllegalAccessException e) {
+                    }
+                }
+            }
+        }
+    }
 
     private List<Column> getOrderedUniqueColumns(final Context context){
         final Set<Column> uniqueColumns = getUniqueColumns(context);
@@ -126,9 +202,9 @@ public abstract class TableContent extends Content {
             return "";
         }
 
-        final String commaSeparatedForeignKeyModelColumns = getCommaSeparatedForeignKeyModelColumns(foreignKeyColumns);
+        final String commaSeparatedForeignKeyColumns = getCommaSeparatedForeignKeyColumns(foreignKeyColumns);
         final String foreignKeySqlName = getForeignKeySqlName(foreignKeyColumns);
-        return String.format(FOREIGN, commaSeparatedForeignKeyModelColumns, foreignKeySqlName, commaSeparatedForeignKeyModelColumns);
+        return String.format(FOREIGN, commaSeparatedForeignKeyColumns, foreignKeySqlName, commaSeparatedForeignKeyColumns);
     }
 
 
@@ -140,10 +216,10 @@ public abstract class TableContent extends Content {
         return String.format(PRIMARY_KEYS, getCommaSeparatedColumns(primaryKeyColumns));
     }
 
-    private static String getForeignKeySqlName(final List<ForeignKeyColumn> foreignKeyModelColumns) {
+    private static String getForeignKeySqlName(final List<ForeignKeyColumn> foreignKeyColumns) {
 
         String sqlName = null;
-        for (final ForeignKeyColumn foreignKeyColumn : foreignKeyModelColumns){
+        for (final ForeignKeyColumn foreignKeyColumn : foreignKeyColumns){
             final String foreignSqlName = foreignKeyColumn.getForeignSqlName();
             if (sqlName == null){
                 sqlName = foreignSqlName;
@@ -155,7 +231,7 @@ public abstract class TableContent extends Content {
         return sqlName;
     }
 
-    private static String getCommaSeparatedForeignKeyModelColumns(final List<ForeignKeyColumn> foreignKeyColumns) {
+    private static String getCommaSeparatedForeignKeyColumns(final List<ForeignKeyColumn> foreignKeyColumns) {
         final List<Column> columns = new ArrayList<Column>(foreignKeyColumns);
         return getCommaSeparatedColumns(columns);
     }

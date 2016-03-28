@@ -13,13 +13,13 @@ public class SampleAdapterItemBinding extends AdapterItemBinding {
         /**
          * Binds the sample_column_1 to the UI in the activity;
          */
-        final TextBinder list_item_sample_column_1 = new TextBinder(R.id.list_item_sample_column_1, SampleTableContent.SAMPLE_COLUMN_1);
+        final TextBinder list_item_sample_column_1 = new TextBinder(R.id.list_item_sample_column_1, SampleTableContent.Columns.SAMPLE_COLUMN_1);
         addBinding(list_item_sample_column_1);
 
         /**
          * Binds the sample_column_2 to the UI in the activity;
          */
-        final TextBinder list_item_sample_column_2 = new TextBinder(R.id.list_item_sample_column_2, SampleTableContent.SAMPLE_COLUMN_2);
+        final TextBinder list_item_sample_column_2 = new TextBinder(R.id.list_item_sample_column_2, SampleTableContent.Columns.SAMPLE_COLUMN_2);
         addBinding(list_item_sample_column_2);
     }
 }
