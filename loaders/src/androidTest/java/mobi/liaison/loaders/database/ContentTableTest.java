@@ -21,7 +21,9 @@ import mobi.liaison.loaders.database.annotations.TablePath;
 import mobi.liaison.loaders.database.annotations.TablePaths;
 import mobi.liaison.loaders.database.annotations.Unique;
 
+import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 
@@ -43,88 +45,88 @@ public class ContentTableTest {
         assertThat(sqlDropQuery, equalTo("DROP TABLE IF EXISTS EMIR;"));
     }
 
-//    @Test
-//    public void getCreateWithOneParameterAndUnique_returnsCorrectSqlTableCreationAndDrop(){
-//        final MockModel mockModel = new MockModel("EMIR", new Path("PATH1", "PATH2"));
-//        final ModelColumn modelColumn = new ModelColumn("CONTENT_NAME", "COLUMN_NAME", Column.Type.text);
-//        mockModel.setModelColums(modelColumn);
-//        mockModel.setUniqueModelColums(modelColumn);
-//
-//        final String sqlCreateQuery = mockModel.getCreate(mContext);
-//        assertThat(sqlCreateQuery).isEqualTo("CREATE TABLE IF NOT EXISTS EMIR ( COLUMN_NAME TEXT, UNIQUE ( COLUMN_NAME ) ON CONFLICT REPLACE );");
-//
-//        final String sqlDropQuery = mockModel.getDrop(mContext);
-//        assertThat(sqlDropQuery).isEqualTo("DROP TABLE IF EXISTS EMIR;");
-//    }
-//
-//    @Test
-//    public void getCreateWithMultipleParameters_returnsCorrectSqlTableCreationAndDrop(){
-//        final MockModel mockModel = new MockModel("EMIR", new Path("PATH1", "PATH2"));
-//        final ModelColumn modelColumn = new ModelColumn("CONTENT_NAME", "COLUMN_NAME", Column.Type.text);
-//        final ModelColumn modelColumn1 = new ModelColumn("CONTENT_NAME1", "COLUMN_NAME1", Column.Type.integer);
-//        mockModel.setModelColums(modelColumn, modelColumn1);
-//
-//        final String sqlCreateQuery = mockModel.getCreate(mContext);
-//        assertThat(sqlCreateQuery).isEqualTo("CREATE TABLE IF NOT EXISTS EMIR ( COLUMN_NAME TEXT, COLUMN_NAME1 INTEGER );");
-//
-//        final String sqlDropQuery = mockModel.getDrop(mContext);
-//        assertThat(sqlDropQuery).isEqualTo("DROP TABLE IF EXISTS EMIR;");
-//    }
-//
-//
-//    @Test
-//    public void createShouldUseUniquesPrimaryKeyAndColumns(){
-//        final MockAnnotationModel mockAnnotationModel = new MockAnnotationModel();
-//        final String sqlCreateQuery = mockAnnotationModel.getCreate(mContext);
-//        assertThat(sqlCreateQuery).isEqualTo("CREATE TABLE IF NOT EXISTS MockAnnotationModel " +
-//                "(" +
-//                    " MODEL_COLUMN_1 TEXT," +
-//                    " MODEL_COLUMN_2 TEXT," +
-//                    " MODEL_COLUMN_3 TEXT," +
-//                    " UNIQUE ( MODEL_COLUMN_2 ) ON CONFLICT REPLACE," +
-//                    " PRIMARY KEY ( MODEL_COLUMN_3 ) " +
-//                ");");
-//    }
-//
-//    @Test
-//    public void createShouldUseForeignKeyAndColumns(){
-//        final MockForeignKeyAnnotationModel mockForeignKeyAnnotationModel = new MockForeignKeyAnnotationModel();
-//        final String sqlCreateQuery = mockForeignKeyAnnotationModel.getCreate(mContext);
-//        assertThat(sqlCreateQuery).isEqualTo("CREATE TABLE IF NOT EXISTS MockForeignKeyAnnotationModel " +
-//                "(" +
-//                " MODEL_COLUMN_1 TEXT," +
-//                " MODEL_COLUMN_2 TEXT," +
-//                " FOREIGN KEY ( MODEL_COLUMN_1, MODEL_COLUMN_2 ) REFERENCES MockAnnotationModel( MODEL_COLUMN_1, MODEL_COLUMN_2 ) ON DELETE CASCADE ON UPDATE CASCADE " +
-//                ");");
-//    }
-//
-//    @Test
-//    public void createThrowErrorForBadForeignKeyAndColumns(){
-//        final MockBadForeignKeyAnnotationModel mockBadForeignKeyAnnotationModel = new MockBadForeignKeyAnnotationModel();
-//        try {
-//            final String sqlCreateQuery = mockBadForeignKeyAnnotationModel.getCreate(mContext);
-//            fail("Expected Exception");
-//        } catch (final Exception exception){
-//
-//        }
-//
-//    }
-//
-//
-//    @Test
-//    public void annotationsShouldBuildGetColumnsAndGetUniquesAndPathsAndGetId(){
-//        final MockAnnotationModel mockAnnotationModel = new MockAnnotationModel();
-//
-//        final List<Column> columns = mockAnnotationModel.getColumns(mContext);
-//        assertThat(columns).hasSize(3);
-//
-//        final Set<Column> uniqueColumns = mockAnnotationModel.getUniqueColumns(mContext);
-//        assertThat(uniqueColumns).hasSize(1);
-//
-//        final List<Path> paths = mockAnnotationModel.getPaths(mContext);
-//        assertThat(paths).hasSize(1);
-//
-//    }
+    @Test
+    public void getCreateWithOneParameterAndUnique_returnsCorrectSqlTableCreationAndDrop(){
+        final MockModel mockModel = new MockModel("EMIR", new Path("PATH1", "PATH2"));
+        final Column modelColumn = new Column("CONTENT_NAME", "COLUMN_NAME", Column.Type.text);
+        mockModel.setModelColums(modelColumn);
+        mockModel.setUniqueModelColums(modelColumn);
+
+        final String sqlCreateQuery = mockModel.getCreate(mContext);
+        assertThat(sqlCreateQuery, equalTo("CREATE TABLE IF NOT EXISTS EMIR ( COLUMN_NAME TEXT, UNIQUE ( COLUMN_NAME ) ON CONFLICT REPLACE );"));
+
+        final String sqlDropQuery = mockModel.getDrop(mContext);
+        assertThat(sqlDropQuery, equalTo("DROP TABLE IF EXISTS EMIR;"));
+    }
+
+    @Test
+    public void getCreateWithMultipleParameters_returnsCorrectSqlTableCreationAndDrop(){
+        final MockModel mockModel = new MockModel("EMIR", new Path("PATH1", "PATH2"));
+        final Column modelColumn = new Column("CONTENT_NAME", "COLUMN_NAME", Column.Type.text);
+        final Column modelColumn1 = new Column("CONTENT_NAME1", "COLUMN_NAME1", Column.Type.integer);
+        mockModel.setModelColums(modelColumn, modelColumn1);
+
+        final String sqlCreateQuery = mockModel.getCreate(mContext);
+        assertThat(sqlCreateQuery, equalTo("CREATE TABLE IF NOT EXISTS EMIR ( COLUMN_NAME TEXT, COLUMN_NAME1 INTEGER );"));
+
+        final String sqlDropQuery = mockModel.getDrop(mContext);
+        assertThat(sqlDropQuery, equalTo("DROP TABLE IF EXISTS EMIR;"));
+    }
+
+
+    @Test
+    public void createShouldUseUniquesPrimaryKeyAndColumns(){
+        final MockAnnotationModel mockAnnotationModel = new MockAnnotationModel();
+        final String sqlCreateQuery = mockAnnotationModel.getCreate(mContext);
+        assertThat(sqlCreateQuery, equalTo("CREATE TABLE IF NOT EXISTS MockAnnotationModel " +
+                "(" +
+                " MODEL_COLUMN_1 TEXT," +
+                " MODEL_COLUMN_2 TEXT," +
+                " MODEL_COLUMN_3 TEXT," +
+                " UNIQUE ( MODEL_COLUMN_2 ) ON CONFLICT REPLACE," +
+                " PRIMARY KEY ( MODEL_COLUMN_3 ) " +
+                ");"));
+    }
+
+    @Test
+    public void createShouldUseForeignKeyAndColumns(){
+        final MockForeignKeyAnnotationModel mockForeignKeyAnnotationModel = new MockForeignKeyAnnotationModel();
+        final String sqlCreateQuery = mockForeignKeyAnnotationModel.getCreate(mContext);
+        assertThat(sqlCreateQuery, equalTo("CREATE TABLE IF NOT EXISTS MockForeignKeyAnnotationModel " +
+                "(" +
+                " MODEL_COLUMN_1 TEXT," +
+                " MODEL_COLUMN_2 TEXT," +
+                " FOREIGN KEY ( MODEL_COLUMN_1, MODEL_COLUMN_2 ) REFERENCES MockAnnotationModel( MODEL_COLUMN_1, MODEL_COLUMN_2 ) ON DELETE CASCADE ON UPDATE CASCADE " +
+                ");"));
+    }
+
+    @Test
+    public void createThrowErrorForBadForeignKeyAndColumns(){
+        final MockBadForeignKeyAnnotationModel mockBadForeignKeyAnnotationModel = new MockBadForeignKeyAnnotationModel();
+        try {
+            final String sqlCreateQuery = mockBadForeignKeyAnnotationModel.getCreate(mContext);
+            fail("Expected Exception");
+        } catch (final Exception exception){
+
+        }
+
+    }
+
+
+    @Test
+    public void annotationsShouldBuildGetColumnsAndGetUniquesAndPathsAndGetId(){
+        final MockAnnotationModel mockAnnotationModel = new MockAnnotationModel();
+
+        final List<Column> columns = mockAnnotationModel.getColumns(mContext);
+        assertThat(columns, hasSize(3));
+
+        final Set<Column> uniqueColumns = mockAnnotationModel.getUniqueColumns(mContext);
+        assertThat(uniqueColumns, hasSize(1));
+
+        final List<Path> paths = mockAnnotationModel.getPaths(mContext);
+        assertThat(paths, hasSize(1));
+
+    }
 
     public static class MockModel extends  TableContent {
 

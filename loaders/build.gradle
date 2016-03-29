@@ -23,7 +23,7 @@ android {
 dependencies {
     testCompile 'junit:junit:4.12'
 
-    apt project(':annotations')
+    apt 'com.liaison:loadersannotationprocessor:0.1.0'
 
     androidTestCompile 'org.mockito:mockito-core:1.10.19'
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
