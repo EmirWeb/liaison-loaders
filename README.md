@@ -14,7 +14,7 @@ Liaison Loaders attempts to simplify and clean up ContentProvider implementation
 ### build.gradle
 ```java
 dependencies {
-    compile 'com.liaison:loaders:0.1.0'
+    compile 'mobi.liaison:loaders:0.1.0'
 }
 ```
 

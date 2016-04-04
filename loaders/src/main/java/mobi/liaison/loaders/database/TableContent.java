@@ -258,6 +258,22 @@ public abstract class TableContent extends Content {
         return mPaths;
     }
 
+    void addPath(final Path path) {
+        mPaths.add(path);
+    }
+
+    void addPrimaryKey(final Column column) {
+        mPrimaryKeys.add(column);
+    }
+
+    void addColumns(final Column column) {
+        mColumns.add(column);
+    }
+
+    void addUniqueColumn(final Column columnh) {
+        mUniqueColumns.add(columnh);
+    }
+
     public Set<Column> getPrimaryKeyColumns(final Context context){
         return mPrimaryKeys;
     }
